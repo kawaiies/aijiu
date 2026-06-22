@@ -1,44 +1,25 @@
-# 贞艾古法·艾灸养生 - 后端服务
+# ============================================
+# 贞艾古法·艾灸养生 - 后端服务 Dockerfile
+# 用于微信云托管 (CloudRun) 容器部署
+# ============================================
 
-微信小程序后端 API 服务，部署在微信云托管 (CloudRun)。
+# 使用 Node.js 18 官方镜像作为基础
+FROM node:18-slim
 
-## 技术栈
+# 设置工作目录
+WORKDIR /usr/src/app
 
-- Node.js 18 + Express
-- MySQL (微信云托管内置)
+# 先复制依赖文件（利用 Docker 缓存层加速构建）
+COPY package*.json ./
 
-## 本地运行
+# 安装生产依赖
+RUN npm install --only=production
 
-```bash
-npm install
-# 配置 MySQL 环境变量后运行
-node index.js
-```
+# 复制全部项目文件
+COPY . ./
 
-## API 接口
+# 暴露端口（云托管会注入 PORT 环境变量，默认80）
+EXPOSE 80
 
-| 路径 | 方法 | 说明 |
-|------|------|------|
-| /api/services | GET | 服务列表 |
-| /api/services/hot | GET | 热门推荐 |
-| /api/services/:sid | GET | 服务详情 |
-| /api/therapists | GET | 技师列表 |
-| /api/appointments | POST | 创建预约 |
-| /api/appointments | GET | 预约列表 |
-| /api/appointments/:id/cancel | PUT | 取消预约 |
-| /api/articles | GET | 文章列表 |
-| /api/articles/:aid | GET | 文章详情 |
-| /api/user/login | POST | 微信登录 |
-| /api/user/profile | GET/PUT | 用户信息 |
-
-## 环境变量
-
-| 变量名 | 说明 |
-|--------|------|
-| PORT | 服务端口 (默认80) |
-| MYSQL_ADDRESS | MySQL 地址 |
-| MYSQL_USERNAME | 用户名 |
-| MYSQL_PASSWORD | 密码 |
-| MYSQL_DATABASE | 数据库名 |
-| WX_APPID | 小程序 AppID |
-| WX_SECRET | 小程序 Secret |
+# 启动服务
+CMD ["node", "index.js"]

@@ -1,17 +1,4 @@
-{
-  "name": "aijiu-backend",
-  "version": "1.0.0",
-  "description": "贞艾古法·艾灸养生 小程序后端服务",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.6.0",
-    "cors": "^2.8.5",
-    "axios": "^1.6.0"
-  }
-}
+node_modules/
+npm-debug.log
+.DS_Store
+.env
