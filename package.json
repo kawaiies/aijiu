@@ -1,4 +1,14 @@
-node_modules/
-npm-debug.log
-.DS_Store
-.env
+﻿{
+  "name": "aijiu",
+  "version": "1.0.0",
+  "description": "贞艾古法·艾灸养生 - 微信云托管后端",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "axios": "^1.6.0"
+  }
+}
